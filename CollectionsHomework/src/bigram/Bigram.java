@@ -14,6 +14,17 @@ public class Bigram {
 		for (Entry<String, Integer> entry : map.entrySet()) {
 		    System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
 		}
+		
+		
+		String ulazni = "mala";
+		char c = predvidiSledeci(ulazni, (HashMap) map);
+		String izlazni = ulazni + c;
+		c = predvidiSledeci(izlazni, (HashMap) map);
+		izlazni = izlazni + c;
+		c = predvidiSledeci(izlazni, (HashMap) map);
+		izlazni = izlazni + c;
+		
+		System.out.println(izlazni);
 	}
 
 	public static HashMap<String, Integer> stringUHashMapu(String s){
@@ -31,5 +42,25 @@ public class Bigram {
 		}
 		
 		return hm;
+	}
+	
+	public static char predvidiSledeci(String s, HashMap<String, Integer> map){
+		
+		char res = '\u0000';
+		int maxVal = -1;
+		char c = s.charAt(s.length()-1);
+		for (Entry<String, Integer> entry : map.entrySet()) {
+			String key = entry.getKey();
+			int val = entry.getValue();
+			
+			if (key.charAt(0) == c){
+				if (val > maxVal){
+					maxVal = val;
+					res = key.charAt(1);
+				}
+			}
+		}
+		
+		return res;
 	}
 }
